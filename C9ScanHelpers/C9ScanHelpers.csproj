@@ -143,5 +143,11 @@
     <Content Include="docs\MySqlParameterCollection.xml" />
     <Content Include="docs\MySqlTransaction.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\C9ScanNative\C9ScanNative.vcxproj">
+      <Project>{2499cba9-933c-4450-8a00-dbd00e51b394}</Project>
+      <Name>C9ScanNative</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
