@@ -93,5 +93,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\C9ScanHelpers\C9ScanHelpers.csproj">
+      <Project>{cf958b88-945a-45ce-8d9f-b938e135918c}</Project>
+      <Name>C9ScanHelpers</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

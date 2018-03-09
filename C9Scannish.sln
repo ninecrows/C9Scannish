@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C9Scannish", "C9Scannish\C9Scannish.csproj", "{A52F6C54-D53F-4793-9859-E6687A942836}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C9ScanHelpers", "C9ScanHelpers\C9ScanHelpers.csproj", "{CF958B88-945A-45CE-8D9F-B938E135918C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A52F6C54-D53F-4793-9859-E6687A942836}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A52F6C54-D53F-4793-9859-E6687A942836}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A52F6C54-D53F-4793-9859-E6687A942836}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF958B88-945A-45CE-8D9F-B938E135918C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF958B88-945A-45CE-8D9F-B938E135918C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF958B88-945A-45CE-8D9F-B938E135918C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF958B88-945A-45CE-8D9F-B938E135918C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
