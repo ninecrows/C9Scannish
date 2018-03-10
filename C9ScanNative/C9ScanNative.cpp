@@ -5,15 +5,15 @@
 #include "C9ScanNative.h"
 namespace C9ScanNative
 {
-#if false
-	array<String ^>^ NativeAccessHelpers::VolumeNames()
+
+	/*array<String ^>^*/ void NativeAccessHelpers::VolumeNames()
 	{
 		std::list<std::wstring> nativeList;
 		GetVolumeNames(nativeList);
 
-		return (nullptr);
+		//return (nullptr);
 	}
-#endif
+
 
 	NativeAccessHelpers::NativeAccessHelpers()
 	{

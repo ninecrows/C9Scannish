@@ -43,6 +43,8 @@ namespace C9ScanNative {
 			return ("Foo");
 		}
 
-		//public array<System::String ^>^ VolumeNames();
+		/*public array<System::String ^>^*/ 
+	public:
+			static void VolumeNames();
 	};
 }

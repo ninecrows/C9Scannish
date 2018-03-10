@@ -9,9 +9,10 @@ namespace C9ScanHelpers
 {
     public class GetScanResults
     {
-        static void GetSomething()
+        public static void GetSomething()
         {
-            var ii = new C9ScanNative.Class1();
+            var ii = new C9ScanNative.Tzpx();
+            var jj = new C9ScanHelpers.GetScanResults();
 
             //var ii = new C9ScanNative.Tzpx();
         }

@@ -39,7 +39,10 @@ namespace C9Scannish
             }
             foundMatches.Items.Add(item);
 
-            var ii = new C9ScanNative.Class1();
+            //var ii = new C9ScanNative.Tzpx();
+            var jj = new C9ScanHelpers.GetScanResults();
+            C9ScanHelpers.GetScanResults.GetSomething();
+            string result = C9ScanNative.NativeAccessHelpers.GetSomething();
 
             //var aa = new C9ScanNative.
 
