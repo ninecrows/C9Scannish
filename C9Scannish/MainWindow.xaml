@@ -5,8 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:C9Scannish"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="380.637" Width="641.976">
     <Grid>
-        
+        <Button x:Name="Scan" Content="Scan" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <DatePicker HorizontalAlignment="Left" Margin="522,7,0,0" VerticalAlignment="Top"/>
+        <TreeView x:Name="foundMatches" HorizontalAlignment="Left" Height="303" Margin="10,35,0,0" VerticalAlignment="Top" Width="618" RenderTransformOrigin="0.5,0.5">
+            <TreeView.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.1"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TreeView.RenderTransform>
+        </TreeView>
+        <TextBox x:Name="FilePath" HorizontalAlignment="Left" Height="23" Margin="90,7,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="427" TextChanged="FilePath_TextChanged"/>
+
     </Grid>
 </Window>

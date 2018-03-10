@@ -98,6 +98,10 @@
       <Project>{cf958b88-945a-45ce-8d9f-b938e135918c}</Project>
       <Name>C9ScanHelpers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\C9ScanNative\C9ScanNative.vcxproj">
+      <Project>{2499cba9-933c-4450-8a00-dbd00e51b394}</Project>
+      <Name>C9ScanNative</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
