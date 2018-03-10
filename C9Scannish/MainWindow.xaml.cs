@@ -43,6 +43,7 @@ namespace C9Scannish
             var jj = new C9ScanHelpers.GetScanResults();
             C9ScanHelpers.GetScanResults.GetSomething();
             string result = C9ScanNative.NativeAccessHelpers.GetSomething();
+            C9ScanNative.NativeAccessHelpers.VolumeNames();
             
 
             //var aa = new C9ScanNative.
