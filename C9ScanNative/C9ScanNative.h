@@ -33,9 +33,9 @@ namespace C9ScanNative {
 	{
 	public:
 		NativeAccessHelpers();
-		
+
 	public:
-		static void DoSomething();		
+		static void DoSomething();
 
 	public:
 		static String ^GetSomething()
@@ -43,8 +43,6 @@ namespace C9ScanNative {
 			return ("Foo");
 		}
 
-		/*public array<System::String ^>^*/ 
-	public:
-			static void VolumeNames();
+		static array<String ^>^ VolumeNames();
 	};
 }
