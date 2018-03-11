@@ -4,7 +4,7 @@
 
 MonitorList::MonitorList()
 {
-	BOOL ok = EnumDisplayMonitors(nullptr, nullptr, MonitorEnumProc, 0);
+	BOOL ok = EnumDisplayMonitors(nullptr, nullptr, MonitorEnumProc, (LPARAM)this);
 }
 
 
@@ -19,7 +19,16 @@ BOOL CALLBACK MonitorList::MonitorEnumProc(
 	_In_ LPARAM   dwData
 )
 {
+	MonitorList *This = (MonitorList *)dwData;
+
 	BOOL ok = TRUE;
 
+	MonitorInformation i;
+	if (lprcMonitor != nullptr)
+	    i.area = *lprcMonitor;
+	i.monitor = hMonitor;
+	
+	This->information.push_back(i);
+	
 	return(ok);
 }

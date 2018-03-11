@@ -1,12 +1,22 @@
 #pragma once
 
 #include <windows.h>
+#include <vector>
+
+struct MonitorInformation
+{
+	HMONITOR monitor;
+	RECT area;
+};
 
 class MonitorList
 {
 public:
 	MonitorList();
 	~MonitorList();
+
+	// Information on each monitor in the system.
+	std::vector<MonitorInformation> information;
 
 private:
 	static BOOL CALLBACK MonitorList::MonitorEnumProc(
