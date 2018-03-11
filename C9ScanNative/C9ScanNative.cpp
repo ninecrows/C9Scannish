@@ -40,18 +40,10 @@ namespace C9ScanNative
 
 	void NativeAccessHelpers::DoSomething()
 	{
-		BOOL ok = EnumDisplayMonitors(nullptr, nullptr, (MONITORENUMPROC)MonitorEnumProc, (void *)this);
+		auto lll = new MonitorList();
+
+		delete lll;
 	}
 
-	BOOL CALLBACK NativeAccessHelpers::MonitorEnumProc(
-		_In_ HMONITOR hMonitor,
-		_In_ HDC      hdcMonitor,
-		_In_ LPRECT   lprcMonitor,
-		_In_ LPARAM   dwData
-	)
-	{
-		BOOL ok = TRUE;
-
-		return(ok);
-	}
+	
 }

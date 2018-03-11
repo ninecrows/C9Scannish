@@ -3,6 +3,7 @@
 #include <list>
 #include <string>
 #include <windows.h>
+#include "MonitorList.h"
 
 using namespace System;
 
@@ -43,14 +44,6 @@ namespace C9ScanNative {
 			return ("Foo");
 		}
 
-		static array<String ^>^ VolumeNames();
-
-	private:
-		static BOOL CALLBACK MonitorEnumProc(
-			_In_ HMONITOR hMonitor,
-			_In_ HDC      hdcMonitor,
-			_In_ LPRECT   lprcMonitor,
-			_In_ LPARAM   dwData
-		);
+		static array<String ^>^ VolumeNames();	
 	};
 }
