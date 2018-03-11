@@ -3,12 +3,13 @@
 #include "stdafx.h"
 
 #include "C9ScanNative.h"
+#include <windows.h>
 
 using namespace System::Runtime::InteropServices;
 
 namespace C9ScanNative
 {
-
+	
 	array<String ^>^ NativeAccessHelpers::VolumeNames()
 	{
 		std::list<std::wstring> nativeList;
@@ -19,10 +20,12 @@ namespace C9ScanNative
 		/*std::list<std::wstring>::iterator*/ auto it = nativeList.begin();
 		for (int ct = 0; ct < items->Length; ct++)
 		{
-			items[ct] = gcnew String((*it).c_str());
 			wchar_t *temp(const_cast<wchar_t *>((*it).c_str()));
 			int howMany((*it).length());
 			String^ foo = Marshal::PtrToStringUni((IntPtr)temp, howMany);
+
+			items[ct] = foo; //gcnew String((*it).c_str());			
+			
 			it++;
 		}
 
@@ -37,6 +40,18 @@ namespace C9ScanNative
 
 	void NativeAccessHelpers::DoSomething()
 	{
+		BOOL ok = EnumDisplayMonitors(nullptr, nullptr, (MONITORENUMPROC)MonitorEnumProc, (void *)this);
+	}
 
+	BOOL CALLBACK NativeAccessHelpers::MonitorEnumProc(
+		_In_ HMONITOR hMonitor,
+		_In_ HDC      hdcMonitor,
+		_In_ LPRECT   lprcMonitor,
+		_In_ LPARAM   dwData
+	)
+	{
+		BOOL ok = TRUE;
+
+		return(ok);
 	}
 }

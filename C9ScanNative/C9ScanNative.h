@@ -35,7 +35,7 @@ namespace C9ScanNative {
 		NativeAccessHelpers();
 
 	public:
-		static void DoSomething();
+		 void DoSomething();
 
 	public:
 		static String ^GetSomething()
@@ -44,5 +44,13 @@ namespace C9ScanNative {
 		}
 
 		static array<String ^>^ VolumeNames();
+
+	private:
+		static BOOL CALLBACK MonitorEnumProc(
+			_In_ HMONITOR hMonitor,
+			_In_ HDC      hdcMonitor,
+			_In_ LPRECT   lprcMonitor,
+			_In_ LPARAM   dwData
+		);
 	};
 }
