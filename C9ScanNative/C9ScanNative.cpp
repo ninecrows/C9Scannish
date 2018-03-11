@@ -4,6 +4,7 @@
 
 #include "C9ScanNative.h"
 #include <windows.h>
+#include <msclr/marshal_cppstd.h>
 
 using namespace System::Runtime::InteropServices;
 
@@ -28,6 +29,19 @@ namespace C9ScanNative
 			
 			it++;
 		}
+
+		return (items);
+	}
+
+	array<String^>^ NativeAccessHelpers::MountNames(String^ mountName)
+	{
+		std::wstring nativeString
+			= msclr::interop::marshal_as<std::wstring>(mountName);
+
+		std::list<std::wstring> nativeList;
+		GetMountNames(nativeString, nativeList);
+
+		array<String ^>^ items = gcnew array<String ^>(nativeList.size());
 
 		return (items);
 	}

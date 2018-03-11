@@ -27,7 +27,26 @@ namespace C9ScanNative {
 				}
 			}
 		}
+	}
 
+	inline void GetMountNames(const std::wstring &volumeName, std::list<std::wstring> &result)
+	{
+		wchar_t name[MAX_PATH + 1];
+		HANDLE h = FindFirstVolumeMountPointW(volumeName.c_str(), name, sizeof(name) / sizeof(*name));
+		if (h != INVALID_HANDLE_VALUE)
+		{
+			result.push_back(std::wstring(name));
+
+			BOOL moreComing = TRUE;
+			while (moreComing)
+			{
+				moreComing = ::FindNextVolumeMountPointW(h, name, sizeof(name) / sizeof(*name));
+				if (moreComing)
+				{
+					result.push_back(std::wstring(name));
+				}
+			}
+		}
 	}
 
 	public ref class NativeAccessHelpers
@@ -44,6 +63,8 @@ namespace C9ScanNative {
 			return ("Foo");
 		}
 
-		static array<String ^>^ VolumeNames();	
+		static array<String ^>^ VolumeNames();
+
+		static array<String ^>^ MountNames(String ^mountName);
 	};
 }
