@@ -29,8 +29,10 @@ namespace C9ScanNative {
 		}
 	}
 
-	inline void GetMountNames(const std::wstring &volumeName, std::list<std::wstring> &result)
+	inline DWORD GetMountNames(const std::wstring &volumeName, std::list<std::wstring> &result)
 	{
+		DWORD status = ERROR_SUCCESS;
+
 		wchar_t name[MAX_PATH + 1];
 		HANDLE h = FindFirstVolumeMountPointW(volumeName.c_str(), name, sizeof(name) / sizeof(*name));
 		if (h != INVALID_HANDLE_VALUE)
@@ -47,6 +49,54 @@ namespace C9ScanNative {
 				}
 			}
 		}
+		else
+		{
+			status = ::GetLastError();
+		}
+
+		return (status);
+	}
+
+	inline void RawLogicalDriveNames(std::wstring &result, size_t bufferLength)
+	{
+		wchar_t *buffer = new wchar_t[bufferLength];
+
+		DWORD actualLength = GetLogicalDriveStringsW(bufferLength, buffer);
+		if (actualLength < bufferLength)
+		{
+			result = std::wstring(buffer, actualLength);
+		}
+		else
+		{
+			delete[] buffer;
+			buffer = nullptr;
+
+			RawLogicalDriveNames(result, actualLength + 1);
+		}
+
+		delete[] buffer;
+	}
+
+	inline void LogicalDriveNames(std::list<std::wstring> &drives)
+	{
+		// Get the results string from windows.
+		std::wstring rawResult;
+		RawLogicalDriveNames(rawResult, 256);
+
+		size_t thisLength(0);
+		size_t workingOffset(0);
+		do
+		{
+			// Grab the next null terminated string at our working offset.
+			std::wstring item(&rawResult[workingOffset]);
+			if (item.length() > 0)
+				drives.push_back(item);
+
+			// Length of this item so we can decide whether to keep looping.
+			thisLength = item.length();
+
+			workingOffset += thisLength + 1;
+		} while (thisLength > 0);
 	}
 
 	public ref class NativeAccessHelpers
@@ -66,5 +116,7 @@ namespace C9ScanNative {
 		static array<String ^>^ VolumeNames();
 
 		static array<String ^>^ MountNames(String ^mountName);
+
+		static array<String ^>^ DriveNames();
 	};
 }

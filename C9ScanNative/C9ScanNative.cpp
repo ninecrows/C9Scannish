@@ -39,13 +39,33 @@ namespace C9ScanNative
 			= msclr::interop::marshal_as<std::wstring>(mountName);
 
 		std::list<std::wstring> nativeList;
-		GetMountNames(nativeString, nativeList);
+		int result = GetMountNames(nativeString, nativeList);
 
 		array<String ^>^ items = gcnew array<String ^>(nativeList.size());
+		auto it = nativeList.begin();
+		for (int ct = 0; ct < items->Length; ct++)
+		{
+			wchar_t *temp(const_cast<wchar_t *>((*it).c_str()));
+			int howMany((*it).length());
+			String^ foo = Marshal::PtrToStringUni((IntPtr)temp, howMany);
+
+			items[ct] = foo; //gcnew String((*it).c_str());			
+
+			it++;
+		}
 
 		return (items);
 	}
 
+	array<String ^>^ NativeAccessHelpers::DriveNames()
+	{
+		std::list<std::wstring> names;
+		LogicalDriveNames(names);
+
+		array<String ^>^ items = gcnew array<String ^>(names.size());
+
+		return (items);
+	}
 
 	NativeAccessHelpers::NativeAccessHelpers()
 	{
