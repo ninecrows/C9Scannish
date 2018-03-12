@@ -124,6 +124,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GetScanResults.cs" />
+    <Compile Include="InfoFileContents.cs" />
+    <Compile Include="InfoFileLocation.cs" />
+    <Compile Include="InfoVolume.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
