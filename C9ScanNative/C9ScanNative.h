@@ -4,10 +4,22 @@
 #include <string>
 #include <windows.h>
 #include "MonitorList.h"
+#include <msclr/marshal_cppstd.h>
 
 using namespace System;
 
 namespace C9ScanNative {
+	public ref class NativeVolumeInformation
+	{
+	public:
+		String ^ pathName;
+		String ^ volumeName;
+		String ^ volumeSerial;
+		Int32 maximumComponentLength;
+		Int32 flags;
+		String ^ fileSystemName;
+		String ^ volumeType;
+	};
 
 	inline void GetVolumeNames(std::list< std::wstring > &results)
 	{
@@ -103,20 +115,88 @@ namespace C9ScanNative {
 	{
 	public:
 		NativeAccessHelpers();
-
-	public:
-		 void DoSomething();
-
-	public:
-		static String ^GetSomething()
-		{
-			return ("Foo");
-		}
-
+	
+	public:		
 		static array<String ^>^ VolumeNames();
 
 		static array<String ^>^ MountNames(String ^mountName);
 
 		static array<String ^>^ DriveNames();
+
+	public:
+		// Get volume information using native API calls that allow us to dig deeper than C# calls do.
+		static NativeVolumeInformation ^ VolumeInformation(String ^volumePath);
+#if false
+		{
+			NativeVolumeInformation ^information = gcnew NativeVolumeInformation();
+
+			// Save the volume path that was passed in so the caller gets if back in this data block.
+			information->pathName = volumePath;
+
+			std::wstring nativeVolumePath = msclr::interop::marshal_as<std::wstring>(volumePath);
+
+			wchar_t buffer[MAX_PATH];
+			DWORD vsn = 0;
+			DWORD maximumComponentLength = 0;
+			DWORD fileSystemFlags = 0;
+			wchar_t nameBuffer[MAX_PATH];
+			BOOL ok(::GetVolumeInformationW(nativeVolumePath.c_str(),
+				buffer, MAX_PATH,
+				&vsn,
+				&maximumComponentLength,
+				&fileSystemFlags,
+				nameBuffer, MAX_PATH));
+
+			wchar_t driveTypeString[64];
+			{
+				UINT driveType(::GetDriveTypeW(nativeVolumePath.c_str()));
+				switch (driveType)
+				{
+				case DRIVE_UNKNOWN:
+					wcscpy(driveTypeString, L"unknonwn");
+					break;
+				case DRIVE_NO_ROOT_DIR:
+					wcscpy(driveTypeString, L"no root dir");
+					break;
+				case DRIVE_REMOVABLE:
+					wcscpy(driveTypeString, L"removable");
+					break;
+				case DRIVE_FIXED:
+					wcscpy(driveTypeString, L"fixed");
+					break;
+				case DRIVE_REMOTE:
+					wcscpy(driveTypeString, L"remote");
+					break;
+				case DRIVE_CDROM:
+					wcscpy(driveTypeString, L"cdrom");
+					break;
+				case DRIVE_RAMDISK:
+					wcscpy(driveTypeString, L"ramdisk");
+					break;
+				default:
+					_snwprintf(driveTypeString, 64, L"%lu", driveType);
+					break;
+
+				}
+			}
+
+			if (ok)
+			{
+				// Store physical volume type information.
+				information->volumeType = Marshal::PtrToStringUni((IntPtr)driveTypeString);
+				information->volumeName = Marshal::PtrToStringUni((IntPtr)buffer);
+				information->fileSystemName = Marshal::PtrToStringUni((IntPtr)nameBuffer);
+				{
+					wchar_t vsnString[64];
+					_snwprintf(vsnString, 64, L"%08lx", vsn);
+					information->volumeSerial = Marshal::PtrToStringUni((IntPtr)vsnString);
+				}
+				information->flags = fileSystemFlags;
+				information->maximumComponentLength = maximumComponentLength;
+			}
+
+			return (information);
+		}
+#endif
 	};
 }

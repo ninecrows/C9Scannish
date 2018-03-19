@@ -30,6 +30,8 @@ namespace C9Scannish
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            var cinfo = C9ScanNative.NativeAccessHelpers.VolumeInformation("C:\\");
+
             var files = Directory.GetFiles("e:\\ebooks", "*.*", SearchOption.AllDirectories);
             {
                 var item = new TreeViewItem();
@@ -101,7 +103,7 @@ namespace C9Scannish
             //var ii = new C9ScanNative.Tzpx();
             var jj = new C9ScanHelpers.GetScanResults();
             C9ScanHelpers.GetScanResults.GetSomething();
-            string result = C9ScanNative.NativeAccessHelpers.GetSomething();
+            //string result = C9ScanNative.NativeAccessHelpers.GetSomething();
 
             {
                 var item = new TreeViewItem();
@@ -126,8 +128,8 @@ namespace C9Scannish
 
             C9ScanNative.NativeAccessHelpers.DriveNames();
 
-            var jjj = new NativeAccessHelpers();
-            jjj.DoSomething();
+            //var jjj = new NativeAccessHelpers();
+            //jjj.DoSomething();
 
             //var aa = new C9ScanNative.
 
